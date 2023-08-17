@@ -81,3 +81,11 @@ You can find some examples using the MCTS here:
 
 Feel free to raise a new issue for any new feature or bug you've spotted. Pull requests are also welcomed if you're
 interested in directly improving the project.
+
+## Resources
+
+A very well done [visualization](https://vgarciasc.github.io/mcts-viz/) on tic-tac-toe.
+
+[Wikipedia](https://en.wikipedia.org/wiki/Monte_Carlo_tree_search)
+
+[Monte Carlo Tree Search: A Review of Recent Modifications and Applications](https://arxiv.org/abs/2103.04931)
