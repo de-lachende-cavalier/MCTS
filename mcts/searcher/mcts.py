@@ -1,10 +1,12 @@
 from math import sqrt
 import time
 import random
+from typing import Callable
 
 from mcts.base.base import BaseState
 from mcts.searcher.tree_node import TreeNode
 from mcts.searcher.policies import random_policy
+from mcts.searcher.selection_strategies import UCB1
 
 
 class MCTS:
@@ -12,6 +14,7 @@ class MCTS:
         self,
         time_limit: int = None,
         iteration_limit: int = None,
+        selection_strategy: Callable = UCB1,
         exploration_constant: float = sqrt(2),
         rollout_policy=None,
     ):
@@ -29,6 +32,7 @@ class MCTS:
             self.search_limit = iteration_limit
             self.limit_type = "iterations"
 
+        self.selection_strategy = selection_strategy
         self.exploration_constant = exploration_constant
         self.rollout_policy = rollout_policy or random_policy
 
@@ -90,14 +94,12 @@ class MCTS:
             node.total_reward += reward
             node = node.parent
 
-    def get_best_child(
-        self, node, exploration_value: float, strategy: function
-    ) -> TreeNode:
+    def get_best_child(self, node, exploration_value: float) -> TreeNode:
         """Get the best child node for the given node using a specified selection strategy."""
         best_value = float("-inf")
         best_nodes = []
         for child in node.children.values():
-            node_value = strategy(node, child, exploration_value)
+            node_value = self.selection_strategy(node, child, exploration_value)
             if node_value > best_value:
                 best_value = node_value
                 best_nodes = [child]
