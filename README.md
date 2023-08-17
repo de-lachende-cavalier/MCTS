@@ -6,12 +6,16 @@ It was originally authored by [pbsinclair42](https://github.com/pbsinclair42/MCT
 [Python Naming Convention](https://namingconvention.org/python/), provides base classes for implementing states and
 actions, and includes more comprehensive examples.
 
+On top of the changes above, I have added some of my own to various files. The biggest change of all, though, is the addition of some code useful for visualizing MCTS as it works!
+
 ## Installation
 
 With [pip](https://pypi.org/project/monte-carlo-tree-search/): `pip install monte-carlo-tree-search`
 
 Without pip: Download the zip/tar.gz file of the [latest release](https://github.com/kstruempf/MCTS/releases),
 extract it, and run `python setup.py install`
+
+**Note**: The operations above will install kstruempf's version! To use the repo with my changes it, simply clone it and play around with the code locally.
 
 ## Quick Usage
 
