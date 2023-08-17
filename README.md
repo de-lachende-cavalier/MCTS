@@ -6,7 +6,7 @@ It was originally authored by [pbsinclair42](https://github.com/pbsinclair42/MCT
 [Python Naming Convention](https://namingconvention.org/python/), provides base classes for implementing states and
 actions, and includes more comprehensive examples.
 
-On top of the changes above, I have added some of my own to various files. The biggest change of all, though, is the addition of some code useful for visualizing MCTS as it works!
+On top of the changes above, I have added some of my own to various files. The biggest change of all, though, is the addition of some code useful for visualizing MCTS as it works. This is useful because, in my view, this is mostly didactic code, and visualization is almost always a good idea, didactically speaking!
 
 ## Installation
 
@@ -15,7 +15,7 @@ With [pip](https://pypi.org/project/monte-carlo-tree-search/): `pip install mont
 Without pip: Download the zip/tar.gz file of the [latest release](https://github.com/kstruempf/MCTS/releases),
 extract it, and run `python setup.py install`
 
-**Note**: The operations above will install kstruempf's version! To use the repo with my changes it, simply clone it and play around with the code locally.
+**Note**: The operations above will install kstruempf's version! To use the repo with my changes in it, simply clone it and play around with the code locally.
 
 ## Quick Usage
 
@@ -79,44 +79,16 @@ print(best_action)  # the best action to take found within the time limit
 print(reward)  # the expected reward for the best action
 ```
 
-**Examples**
+## Examples
 
 You can find some examples using the MCTS here:
 
-* [naughtsandcrosses.py](https://github.com/kstruempf/MCTS/blob/main/mcts/example/naughtsandcrosses.py) is a minimal
+- [naughtsandcrosses.py](https://github.com/kstruempf/MCTS/blob/main/mcts/example/naughtsandcrosses.py) is a minimal
   runnable example by [pbsinclair42](https://github.com/pbsinclair42)
-* [connectmnk.py](https://github.com/kstruempf/MCTS/blob/main/mcts/example/connectmnk.py) is an example running a full
+- [connectmnk.py](https://github.com/kstruempf/MCTS/blob/main/mcts/example/connectmnk.py) is an example running a full
   game between two MCTS agents by [LucasBorboleta](https://github.com/LucasBorboleta)
 
 ## Collaborating
 
 Feel free to raise a new issue for any new feature or bug you've spotted. Pull requests are also welcomed if you're
 interested in directly improving the project.
-
-### Coding Guidelines
-
-Commit message should follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification.
-This makes contributions easily comprehensible and enables us to automatically generate release notes.
-
-Recommended tooling for developers:
-
-* JetBrains Plugin [Conventional Commit](https://plugins.jetbrains.com/plugin/13389-conventional-commit)
-  by [Edoardo Luppi](https://github.com/lppedd)
-* Visual Studio
-  Plugin [Conventional Commits](https://marketplace.visualstudio.com/items?itemName=vivaxy.vscode-conventional-commits)
-  by [vivaxy](https://marketplace.visualstudio.com/publishers/vivaxy)
-
-**Example commit message**
-
-```
-fix: prevent racing of requests
-
-Introduce a request id and a reference to latest request. Dismiss
-incoming responses other than from latest request.
-
-Remove timeouts which were used to mitigate the racing issue but are
-obsolete now.
-
-Reviewed-by: Z
-Refs: #123
-```
