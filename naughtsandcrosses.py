@@ -5,13 +5,19 @@ from copy import deepcopy
 from functools import reduce
 
 from base import BaseState, BaseAction
-from mcts import MCTS
 
 
 class NaughtsAndCrossesState(BaseState):
     def __init__(self):
         self.board = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
         self.currentPlayer = 1
+
+    def __repr__(self):
+        symbol_map = {1: "X", -1: "O", 0: " "}
+        board_str = "\n".join(
+            " | ".join(symbol_map[cell] for cell in row) for row in self.board
+        )
+        return "\n" + board_str + "\n"
 
     def get_current_player(self):
         return self.currentPlayer
@@ -60,6 +66,30 @@ class NaughtsAndCrossesState(BaseState):
                 return sum(diagonal) / 3
         return 0
 
+    def get_reward_cooperative(self):
+        """The agents win if, at the end, we have a chequered pattern on the board."""
+
+        def get_adjacent_cells(x, y, board_size):
+            adjacent = []
+            # up, down, left, right
+            for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+                new_x, new_y = x + dx, y + dy
+                if 0 <= new_x < board_size and 0 <= new_y < board_size:
+                    adjacent.append((new_x, new_y))
+            return adjacent
+
+        if not all(cell != 0 for row in self.board for cell in row):
+            return 0  # board is not full
+
+        board_size = len(self.board)
+        for x in range(board_size):
+            for y in range(board_size):
+                cell_value = self.board[x][y]
+                for adj_x, adj_y in get_adjacent_cells(x, y, board_size):
+                    if cell_value == self.board[adj_x][adj_y]:
+                        return 0
+        return 1
+
 
 class Action(BaseAction):
     def __init__(self, player, x, y):
@@ -83,3 +113,7 @@ class Action(BaseAction):
 
     def __hash__(self):
         return hash((self.x, self.y, self.player))
+
+
+if __name__ == "__main__":
+    print(NaughtsAndCrossesState())
