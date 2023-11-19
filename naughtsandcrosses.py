@@ -40,15 +40,18 @@ class NaughtsAndCrossesState(BaseState):
         for row in self.board:
             if abs(sum(row)) == 3:
                 return True
+
         for column in list(map(list, zip(*self.board))):
             if abs(sum(column)) == 3:
                 return True
+
         for diagonal in [
             [self.board[i][i] for i in range(len(self.board))],
             [self.board[i][len(self.board) - i - 1] for i in range(len(self.board))],
         ]:
             if abs(sum(diagonal)) == 3:
                 return True
+
         return reduce(operator.mul, sum(self.board, []), 1) != 0
 
     def get_reward(self):
@@ -65,30 +68,6 @@ class NaughtsAndCrossesState(BaseState):
             if abs(sum(diagonal)) == 3:
                 return sum(diagonal) / 3
         return 0
-
-    def get_reward_cooperative(self):
-        """The agents win if, at the end, we have a chequered pattern on the board."""
-
-        def get_adjacent_cells(x, y, board_size):
-            adjacent = []
-            # up, down, left, right
-            for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
-                new_x, new_y = x + dx, y + dy
-                if 0 <= new_x < board_size and 0 <= new_y < board_size:
-                    adjacent.append((new_x, new_y))
-            return adjacent
-
-        if not all(cell != 0 for row in self.board for cell in row):
-            return 0  # board is not full
-
-        board_size = len(self.board)
-        for x in range(board_size):
-            for y in range(board_size):
-                cell_value = self.board[x][y]
-                for adj_x, adj_y in get_adjacent_cells(x, y, board_size):
-                    if cell_value == self.board[adj_x][adj_y]:
-                        return 0
-        return 1
 
 
 class Action(BaseAction):
@@ -113,7 +92,3 @@ class Action(BaseAction):
 
     def __hash__(self):
         return hash((self.x, self.y, self.player))
-
-
-if __name__ == "__main__":
-    print(NaughtsAndCrossesState())
