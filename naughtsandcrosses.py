@@ -4,8 +4,8 @@ import operator
 from copy import deepcopy
 from functools import reduce
 
-from mcts.base.base import BaseState, BaseAction
-from mcts.searcher.mcts import MCTS
+from base import BaseState, BaseAction
+from mcts import MCTS
 
 
 class NaughtsAndCrossesState(BaseState):
@@ -37,8 +37,10 @@ class NaughtsAndCrossesState(BaseState):
         for column in list(map(list, zip(*self.board))):
             if abs(sum(column)) == 3:
                 return True
-        for diagonal in [[self.board[i][i] for i in range(len(self.board))],
-                         [self.board[i][len(self.board) - i - 1] for i in range(len(self.board))]]:
+        for diagonal in [
+            [self.board[i][i] for i in range(len(self.board))],
+            [self.board[i][len(self.board) - i - 1] for i in range(len(self.board))],
+        ]:
             if abs(sum(diagonal)) == 3:
                 return True
         return reduce(operator.mul, sum(self.board, []), 1) != 0
@@ -50,8 +52,10 @@ class NaughtsAndCrossesState(BaseState):
         for column in list(map(list, zip(*self.board))):
             if abs(sum(column)) == 3:
                 return sum(column) / 3
-        for diagonal in [[self.board[i][i] for i in range(len(self.board))],
-                         [self.board[i][len(self.board) - i - 1] for i in range(len(self.board))]]:
+        for diagonal in [
+            [self.board[i][i] for i in range(len(self.board))],
+            [self.board[i][len(self.board) - i - 1] for i in range(len(self.board))],
+        ]:
             if abs(sum(diagonal)) == 3:
                 return sum(diagonal) / 3
         return 0
@@ -70,15 +74,12 @@ class Action(BaseAction):
         return str(self)
 
     def __eq__(self, other):
-        return self.__class__ == other.__class__ and self.x == other.x and self.y == other.y and self.player == other.player
+        return (
+            self.__class__ == other.__class__
+            and self.x == other.x
+            and self.y == other.y
+            and self.player == other.player
+        )
 
     def __hash__(self):
         return hash((self.x, self.y, self.player))
-
-
-if __name__ == "__main__":
-    initial_state = NaughtsAndCrossesState()
-    searcher = MCTS(time_limit=1000)
-    action = searcher.search(initial_state=initial_state)
-
-    print(action)

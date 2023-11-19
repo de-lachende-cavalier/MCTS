@@ -1,6 +1,6 @@
 import random
 
-from mcts.base.base import BaseState
+from base import BaseState
 
 
 def random_policy(state: BaseState) -> float:

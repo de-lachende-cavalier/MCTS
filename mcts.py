@@ -3,10 +3,10 @@ import time
 import random
 from typing import Callable
 
-from mcts.base.base import BaseState
-from mcts.searcher.tree_node import TreeNode
-from mcts.searcher.policies import random_policy
-from mcts.searcher.selection_strategies import UCB1
+from base import BaseState
+from tree_node import TreeNode
+from policies import random_policy
+from selection_strategies import UCB1
 
 
 class MCTS:

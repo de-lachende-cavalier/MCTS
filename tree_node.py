@@ -1,4 +1,4 @@
-from mcts.base.base import BaseState
+from base import BaseState
 
 
 class TreeNode:
